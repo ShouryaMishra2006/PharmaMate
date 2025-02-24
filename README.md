@@ -13,15 +13,23 @@ PharmAssist AI aims to solve these challenges by:
 --> Offering AI-powered drug safety checks and dosage reminders.
 --> Tracking patient history for personalized recommendations and safety (from allergies, past prescriptions ).
 
-🔑 Key Features & Approach
-✅ Prescription Matching & Order Creation – Uses OCR & NLP to extract handwritten prescriptions and generate medicine orders.
-✅ Specialist Recommendation – AI-based symptom analysis to suggest the right doctor, with voice input for accessibility.
-✅ Doctor Availability & Telemedicine – Checks real-time doctor availability and suggests online consultations if unavailable.
-✅ AI-Driven Medicine Suggestions – Provides OTC medicine recommendations, checks drug interactions, and sets dosage reminders.
-✅ History Tracking & Personalized Care – Stores patient history for smart recommendations and alerts for medication conflicts.
-✅ Smart UI & Multilingual Support – Supports voice-based interactions, image input, and multiple languages for easy access.
+# Key Features & Approach
 
-🛠️ Tech Stack
+✅ Prescription Matching & Order Creation –
+Uses OCR & NLP to extract handwritten prescriptions and generate medicine orders.
+✅ Specialist Recommendation –
+AI-based symptom analysis to suggest the right doctor, with voice input for accessibility.
+✅ Doctor Availability & Telemedicine –
+Checks real-time doctor availability and suggests online consultations if unavailable.
+✅ AI-Driven Medicine Suggestions –
+Provides OTC medicine recommendations, checks drug interactions, and sets dosage reminders.
+✅ History Tracking & Personalized Care – 
+Stores patient history for smart recommendations and alerts for medication conflicts.
+✅ Smart UI & Multilingual Support – 
+Supports voice-based interactions, image input, and multiple languages for easy access.
+
+# Tech Stack
+
 🔹 Frontend: React.js (Web), React Native (Mobile)
 🔹 Backend: FastAPI (Python), Node.js (Express.js)
 🔹 Database: MongoDB
