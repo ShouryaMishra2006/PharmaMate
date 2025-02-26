@@ -141,7 +141,7 @@ cd frontend
 
 npm install
 
-npm start
+npm run dev 
 
 Starts the React.js frontend.
 
