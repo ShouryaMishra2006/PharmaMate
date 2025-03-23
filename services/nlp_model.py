@@ -1,7 +1,7 @@
 import pandas as pd
 from transformers import pipeline
 
-def load_specialist_mapping(csv_path="specialist_mapping.csv"):
+def load_specialist_mapping(csv_path=r"C:\Users\asus\OneDrive\Desktop\Pharm-ate\backend\services\specialist_mapping.csv"):
     df = pd.read_csv(csv_path)
     return dict(zip(df["Symptom"].str.lower(), df["Specialist"]))
 specialist_mapping = load_specialist_mapping()

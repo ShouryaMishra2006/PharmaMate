@@ -1,6 +1,32 @@
 import cv2
 import pytesseract
 import requests
+import re
+
+def identify_medicines(extracted_text, medicine_list):
+    """
+    Identify the medicines from a list that appear in the extracted text.
+
+    Parameters:
+    extracted_text (str): The text to search through.
+    medicine_list (list): A list of medicine names to look for.
+
+    Returns:
+    list: A list of identified medicines found in the extracted text.
+    """
+    # Convert the extracted text to lower case for case-insensitive comparison
+    extracted_text_lower = extracted_text.lower()
+    
+    # Initialize an empty list to store identified medicines
+    identified_medicines = []
+
+    # Loop through the list of medicines and check if they appear in the extracted text
+    for medicine in medicine_list:
+        # Use a regular expression to search for whole word matches, case insensitive
+        if re.search(r'\b' + re.escape(medicine.lower()) + r'\b', extracted_text_lower):
+            identified_medicines.append(medicine)
+    
+    return identified_medicines
 def get_medicine_list(limit=100):
     """Fetch medicine names from OpenFDA API"""
     url = f"https://api.fda.gov/drug/label.json?limit={limit}"
@@ -27,7 +53,7 @@ def extract_text_from_image(image_path):
     extracted_text = pytesseract.image_to_string(gray)
     
     return extracted_text.lower() 
-def identify_medicines(extracted_text, medicine_list):
+def process_prescription(extracted_text, medicine_list):
     """Find medicines mentioned in the extracted text"""
     found_medicines = [med for med in medicine_list if med in extracted_text]
     return found_medicines
