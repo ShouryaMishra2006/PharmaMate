@@ -74,15 +74,22 @@ Grayscale + Thresholding improves accuracy for handwritten prescriptions, allowi
 
 1. Clone the repository and install the necessary dependencies:
    git clone https://github.com/ShouryaMishra2006/PharmaMate.git
+   
    pip install -r requirements.txt
 3. Set up the environment, including API keys for UMLS and other third-party services.
 4. Install the required models for SpaCy, ClinicalBERT, and any other dependencies (e.g., Tesseract OCR).
 5. Run the FastAPI server and use the provided endpoints to upload medical images or input text.
+   
    cd Frontend
+   
    npm run dev
+   
    cd node-backend
+   
    nodemon index.js
+   
    cd FastAPI-backend
+   
    python -m uvicorn main:app --reload
 
 ## API Endpoints
