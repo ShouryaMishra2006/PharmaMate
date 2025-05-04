@@ -1,6 +1,6 @@
 # PharmaMate: AI-powered Clinical Decision Support System
 
-[![PharmaMate Demo]](https://drive.google.com/file/d/1i1xEozqa_eRYYbxugDlReMW0rJEj1qZe/view?usp=drive_link)
+[PharmaMate Demo](https://drive.google.com/file/d/1i1xEozqa_eRYYbxugDlReMW0rJEj1qZe/view?usp=drive_link)
 
 
 ## Overview
