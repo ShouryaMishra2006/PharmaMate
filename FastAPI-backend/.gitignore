@@ -1,0 +1,3 @@
+services/clinicalbert_model
+services/spacy_ner_model
+.env
