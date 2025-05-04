@@ -1,5 +1,8 @@
 # PharmaMate: AI-powered Clinical Decision Support System
 
+[![PharmaMate Demo]](https://drive.google.com/file/d/1i1xEozqa_eRYYbxugDlReMW0rJEj1qZe/view?usp=drive_link)
+
+
 ## Overview
 
 PharmaMate is an AI-powered clinical decision support system designed to assist healthcare professionals in making informed decisions based on clinical data. The system combines advanced machine learning and Natural Language Processing (NLP) techniques, including Optical Character Recognition (OCR), hybrid models like SpaCy and ClinicalBERT, and integration with external medical APIs to provide accurate predictions for conditions, treatments, specialists, and drugs. 
@@ -73,6 +76,7 @@ Grayscale + Thresholding improves accuracy for handwritten prescriptions, allowi
 ## Project Setup
 
 1. Clone the repository and install the necessary dependencies:
+   
    git clone https://github.com/ShouryaMishra2006/PharmaMate.git
    
    pip install -r requirements.txt
