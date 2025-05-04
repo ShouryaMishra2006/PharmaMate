@@ -19,9 +19,15 @@ router.post("/analyze-prescription", upload.single("image"), async (req, res) =>
     const response = await axios.post("http://localhost:8000/upload", formData, {
       headers: formData.getHeaders(),
     });
-    console.log(response)
-    fs.unlinkSync(file.path); 
-
+    console.log(response.data)
+    fs.unlink(file.path, (err) => {
+      if (err) {
+        console.error("Error deleting file:", err.message);
+      } else {
+        console.log("File deleted:", file.path);
+      }
+    });
+    
     res.json(response.data);
   } catch (err) {
     console.error("Error:", err.message);
@@ -40,6 +46,7 @@ router.post("/suggest-medicines", async (req, res) => {
       extracted_text,
     });
     console.log(response.data)
+    console.log(response.data.conditions)
     res.json(response.data);
   } catch (err) {
     console.error("Error:", err.message);
