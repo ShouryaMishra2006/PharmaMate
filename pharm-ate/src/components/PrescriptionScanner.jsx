@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "./ui/Card.jsx";
-import { Input } from "./ui/input.jsx";
 import { Button } from "./ui/button.jsx";
 import { Camera, Search, History } from "lucide-react";
 
@@ -8,6 +7,7 @@ export default function PrescriptionScanner() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [suggestedMedicines, setSuggestedMedicines] = useState([]);
+  const [possibleconditions, setpossibleconditions] = useState([]);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -41,6 +41,7 @@ export default function PrescriptionScanner() {
   };
 
   const suggestMedicines = async () => {
+    console.log("here clicked");
     if (!analysisResult) {
       alert("Please upload image and check recommended specialist first");
       return;
@@ -56,7 +57,8 @@ export default function PrescriptionScanner() {
 
       const data = await response.json();
       console.log("Medicine Suggestions:", data);
-      setSuggestedMedicines(data.related_links || []);
+      setSuggestedMedicines(data.recommended_drugs || []);
+      setpossibleconditions(data.conditions || []);
     } catch (error) {
       console.log("Error suggesting medicines: ", error);
     }
@@ -124,7 +126,11 @@ export default function PrescriptionScanner() {
               </p>
               <p>
                 <strong>👨‍⚕️ Recommended Specialist:</strong>{" "}
-                {analysisResult.recommended_specialist}
+                {analysisResult.specialist}
+              </p>
+              <p>
+                <strong>Suggested Treatments:</strong>{" "}
+                {analysisResult.treatment}
               </p>
             </div>
           )}
@@ -132,34 +138,49 @@ export default function PrescriptionScanner() {
           <hr className="border-gray-300" />
 
           <h2 className="text-lg font-semibold text-gray-700">
-            📜 Need More Assistance ?
+            📜 Need More Assistance?
           </h2>
+
           <Button
             variant="outline"
             className="flex items-center gap-2 border-gray-800 hover:bg-gray-100"
             onClick={suggestMedicines}
           >
-            <h3 className="text-blue-600">See Related Links </h3>
+            <h3 className="text-blue-600">
+              See Possible Conditions and Drugs for Cure
+            </h3>
           </Button>
+
           {suggestedMedicines.length > 0 && (
             <div className="mt-8 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg shadow-md">
               <div className="flex items-center mb-4">
-                <span className="text-blue-600 text-xl mr-2">🔗</span>
+                <span className="text-blue-600 text-xl mr-2">*</span>
                 <h2 className="text-blue-800 font-semibold text-lg">
-                  Related Links
+                  Suggested Medicines:
                 </h2>
               </div>
-              <ul className="space-y-3">
-                {suggestedMedicines.map((url, index) => (
-                  <li key={index}>
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-blue-700 hover:text-blue-900 hover:underline text-sm md:text-base transition duration-200"
-                    >
-                      🔹 {formatLinkTitle(url)}
-                    </a>
+              <ul className="space-y-3 text-left">
+                {suggestedMedicines.map((medicine, index) => (
+                  <li key={index} className="font-medium">
+                    🔹 {medicine}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {possibleconditions.length > 0 && (
+            <div className="mt-8 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <span className="text-blue-600 text-xl mr-2">*</span>
+                <h2 className="text-blue-800 font-semibold text-lg">
+                  Possible Conditions:
+                </h2>
+              </div>
+              <ul className="space-y-3 text-left">
+                {possibleconditions.map((condition, index) => (
+                  <li key={index} className="font-medium">
+                    🔹 {condition}
                   </li>
                 ))}
               </ul>
