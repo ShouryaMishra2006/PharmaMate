@@ -1,5 +1,6 @@
 import axios from "axios";
-
+import dotenv from 'dotenv'
+dotenv.config()
 export const analyzePrescription = async (req, res) => {
   try {
     const { image } = req.body;
@@ -8,7 +9,7 @@ export const analyzePrescription = async (req, res) => {
       return res.status(400).json({ error: "Image file is required" });
     }
     print("mai yaha hu")
-    const pythonBackendURL = "http://localhost:8000/upload";
+    const pythonBackendURL = `${process.env.PYTHON_BACKEND_URL}/upload`;
 
     const response = await axios.post(pythonBackendURL, { image });
     print(response)

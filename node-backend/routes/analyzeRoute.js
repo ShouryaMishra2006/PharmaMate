@@ -3,7 +3,8 @@ import multer from "multer";
 import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
-
+import dotenv from 'dotenv';
+dotenv.config();
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
@@ -16,7 +17,7 @@ router.post("/analyze-prescription", upload.single("image"), async (req, res) =>
     const formData = new FormData();
     formData.append("image", fs.createReadStream(file.path), file.originalname);
 
-    const response = await axios.post("http://localhost:8000/upload", formData, {
+    const response = await axios.post(`${process.env.PYTHON_BACKEND_URL}/upload`, formData, {
       headers: formData.getHeaders(),
     });
     console.log(response.data)
@@ -42,7 +43,7 @@ router.post("/suggest-medicines", async (req, res) => {
       return res.status(400).json({ error: "Missing extracted_text" });
     }
 
-    const response = await axios.post("http://localhost:8000/suggest-medicines", {
+    const response = await axios.post(`${process.env.PYTHON_BACKEND_URL}/suggest-medicines`, {
       extracted_text,
     });
     console.log(response.data)

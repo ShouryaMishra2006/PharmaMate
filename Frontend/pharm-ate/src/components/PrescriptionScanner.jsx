@@ -25,7 +25,7 @@ export default function PrescriptionScanner() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/analyze-prescription",
+        `${import.meta.env.NODE_BACKEND_URL}/analyze-prescription`,
         {
           method: "POST",
           body: formData,
@@ -47,7 +47,7 @@ export default function PrescriptionScanner() {
       return;
     }
     try {
-      const response = await fetch("http://localhost:5000/suggest-medicines", {
+      const response = await fetch(`${import.meta.env.NODE_BACKEND_URL}/suggest-medicines`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,8 +72,8 @@ export default function PrescriptionScanner() {
       const rawTitle = segments[segments.length - 1];
       return rawTitle
         .replace(/[-_]/g, " ")
-        .replace(/\.\w+$/, "") // remove file extension if any
-        .replace(/\b\w/g, (char) => char.toUpperCase()); // capitalize
+        .replace(/\.\w+$/, "") 
+        .replace(/\b\w/g, (char) => char.toUpperCase()); 
     } catch {
       return "Resource";
     }
