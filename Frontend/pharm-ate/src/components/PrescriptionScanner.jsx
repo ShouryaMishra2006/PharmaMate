@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "./ui/Card.jsx";
 import { Button } from "./ui/button.jsx";
 import { Camera, Search, History } from "lucide-react";
-
+const backendUrl = import.meta.env.NODE_BACKEND_URL || "http://localhost:5000";
 export default function PrescriptionScanner() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [suggestedMedicines, setSuggestedMedicines] = useState([]);
   const [possibleconditions, setpossibleconditions] = useState([]);
@@ -19,18 +20,14 @@ export default function PrescriptionScanner() {
       alert("Please select an image first!");
       return;
     }
-
+    console.log(backendUrl);
     const formData = new FormData();
     formData.append("image", selectedImage);
-
     try {
-      const response = await fetch(
-        `${import.meta.env.NODE_BACKEND_URL}/analyze-prescription`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${backendUrl}/analyze-prescription`, {
+        method: "POST",
+        body: formData,
+      });
 
       const data = await response.json();
       console.log("Analysis Result:", data);
@@ -41,13 +38,14 @@ export default function PrescriptionScanner() {
   };
 
   const suggestMedicines = async () => {
-    console.log("here clicked");
     if (!analysisResult) {
       alert("Please upload image and check recommended specialist first");
       return;
     }
+
     try {
-      const response = await fetch(`${import.meta.env.NODE_BACKEND_URL}/suggest-medicines`, {
+      setLoading(true); 
+      const response = await fetch(`${backendUrl}/suggest-medicines`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,21 +59,8 @@ export default function PrescriptionScanner() {
       setpossibleconditions(data.conditions || []);
     } catch (error) {
       console.log("Error suggesting medicines: ", error);
-    }
-  };
-  const formatLinkTitle = (url) => {
-    try {
-      const path = new URL(url).pathname;
-      const segments = path.split("/").filter(Boolean);
-      if (segments.length === 0) return "MedlinePlus";
-
-      const rawTitle = segments[segments.length - 1];
-      return rawTitle
-        .replace(/[-_]/g, " ")
-        .replace(/\.\w+$/, "") 
-        .replace(/\b\w/g, (char) => char.toUpperCase()); 
-    } catch {
-      return "Resource";
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -150,6 +135,12 @@ export default function PrescriptionScanner() {
               See Possible Conditions and Drugs for Cure
             </h3>
           </Button>
+          {loading && (
+            <div className="text-center mt-4 text-sm text-gray-600 animate-pulse">
+              ⏳ Fetching drug and condition suggestions. This may take a few
+              seconds...
+            </div>
+          )}
 
           {suggestedMedicines.length > 0 && (
             <div className="mt-8 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg shadow-md">
