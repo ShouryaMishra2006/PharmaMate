@@ -1,7 +1,12 @@
 fastapi
 uvicorn
 pytesseract
+numpy
+opencv-python
+python-dotenv
 pillow
-transformers
-torch
-pymongo
+requests
+bs4
+langchain
+openai
+tiktoken
