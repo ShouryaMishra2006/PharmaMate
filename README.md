@@ -7,44 +7,98 @@
 
 PharmaMate is an AI-powered clinical decision support system designed to assist healthcare professionals in making informed decisions based on clinical data. The system combines advanced machine learning and Natural Language Processing (NLP) techniques, including Optical Character Recognition (OCR), hybrid models like SpaCy and ClinicalBERT, and integration with external medical APIs to provide accurate predictions for conditions, treatments, specialists, and drugs. 
 
-## Key Features
+## 🔧 Technologies & Features
 
-### 1. **Hybrid Approach for Named Entity Recognition (NER)**:
-   PharmaMate employs a **hybrid approach** for Named Entity Recognition (NER) by combining **SpaCy** and **ClinicalBERT** models. This approach ensures:
-   - **SpaCy** is used for traditional NER tasks, such as identifying and classifying key medical entities like conditions, treatments, and specialists in clinical text.
-   - **ClinicalBERT**, a BERT-based model fine-tuned on clinical data, enhances the model’s ability to accurately capture medical entities, especially in clinical contexts where complex jargon is used. The accuracy of this hybrid approach exceeds **90%**, ensuring high reliability in recognizing medical terms and relationships.
+### 1. 🧠 Hybrid Named Entity Recognition (NER)
 
-### 2. **Custom Dataset Creation Using Google SpanBERT**:
-   Using **Google SpanBERT**, a transformer model designed for span-based tasks, specialists are added to the dataset to enrich the system's understanding of medical contexts. The dataset is processed to include:
-   - **Conditions** (e.g., diseases or medical conditions)
-   - **Treatments** (e.g., medication or therapy)
-   - **Specialists** (e.g., doctors or medical professionals)
-   
-   The use of **Google SpanBERT** ensures that the system can accurately map symptoms to relevant specialists, improving the precision of specialist suggestions.
+PharmaMate uses a hybrid NER pipeline combining:
 
-### 3. **Optical Character Recognition (OCR)**:
-   The system includes an **OCR process** to extract text from medical images such as prescriptions or doctor notes. Using **Tesseract OCR**, the system converts medical images into text for further analysis. This allows users to upload images of medical documents, and the system will automatically extract relevant text for analysis.
+- **SpaCy** for classical entity recognition of conditions, treatments, and specialist types.
+- **ClinicalBERT** for deep contextual understanding of medical language in clinical settings.
 
-   Key steps in the OCR process:
-   - The **FastAPI backend** accepts image files through an API endpoint (`/upload`).
-   - **Tesseract OCR** is used to extract text from the image.
-   - The extracted text is analyzed for medical information such as symptoms, conditions, and treatments.
-   - The system also identifies drugs mentioned in the extracted text by comparing it with a pre-existing list of medications.
-     
-Optimization:
-Grayscale + Thresholding improves accuracy for handwritten prescriptions, allowing for cleaner text extraction even from poor-quality scans.
+> **Accuracy**: This combination achieves over **90%** accuracy in identifying relevant medical entities from text or scanned documents.
 
-### 4. **ClinicalBERT for Specialist and Treatment Prediction**:
-   After extracting text (either through OCR or user input), **ClinicalBERT** is used to predict the relevant **specialists** and **treatments** based on the medical text. **ClinicalBERT**'s specialized understanding of clinical language ensures accurate prediction, significantly improving clinical decision support.
+---
 
-### 5. **Mapping Symptoms to Possible Conditions**:
-   Symptoms provided by the user (either through text or OCR-extracted content) are mapped to possible **medical conditions** using the **UMLS (Unified Medical Language System)**. The system fetches related conditions using the **UMLS API**, identifying the most probable conditions based on the symptoms.
+### 2. 🧬 Custom Dataset with Google SpanBERT
 
-### 6. **Drug Suggestions Based on Conditions**:
-   Once conditions are identified, the system queries the **FDA API** to suggest relevant drugs. It retrieves both **brand** and **generic** drug names associated with the conditions, helping healthcare professionals identify potential treatments quickly.
+We enhance our data using **Google SpanBERT**, a transformer model fine-tuned for span-based prediction tasks:
 
-### 7. **Multi-agent System for Condition to Drug Mapping**:
-   The system employs a **multi-agent approach** to map symptoms to drugs. It combines information from the **UMLS** to fetch conditions and the **FDA** to suggest drugs. This approach allows for better and more comprehensive decision-making in clinical contexts.
+- Adds rich context-based span annotations.
+- Improves mappings for:
+  - **Conditions** (e.g., Asthma, Malaria)
+  - **Treatments** (e.g., Antibiotics, Chemotherapy)
+  - **Specialists** (e.g., Cardiologist, Oncologist)
+
+---
+
+### 3. 🖼 Optical Character Recognition (OCR)
+
+PharmaMate includes robust OCR for scanned prescriptions and medical notes:
+
+- **Tesseract OCR** converts images into machine-readable text.
+- **Preprocessing techniques**:
+  - Grayscale conversion
+  - Otsu thresholding
+  - Binarization
+
+> Improves recognition for **handwritten or poor-quality** prescription images.
+
+---
+
+### 4. 🧑‍⚕️ ClinicalBERT for Specialist & Treatment Prediction
+
+After text extraction (from OCR or direct input), **ClinicalBERT** is used to:
+
+- Predict the **most suitable medical specialist**.
+- Suggest **initial treatments or procedures**.
+
+This ensures contextual accuracy and relevance in clinical scenarios.
+
+---
+
+### 5. 🔄 Mapping Symptoms to Conditions using UMLS
+
+Utilizes the **Unified Medical Language System (UMLS)** API to:
+
+- Map user symptoms to medically valid **conditions**.
+- Use Concept Unique Identifiers (CUIs) and relationships (`RO`, `RQ`) to extract related diagnoses.
+
+---
+
+### 6. 💊 Drug Suggestions via OpenFDA
+
+Once conditions are identified, PharmaMate queries the **FDA Drug Labeling API**:
+
+- Fetches brand and generic drugs.
+- Extracts information from:
+  - `indications_and_usage`
+  - `openfda.brand_name`
+  - `openfda.generic_name`
+
+---
+
+### 7. 🤖 Multi-Agent Intelligence with LangChain
+
+PharmaMate employs a **LangChain-powered multi-agent architecture**:
+
+- **Agent 1**: Analyzes text to determine specialists and treatments.
+- **Agent 2**: Maps symptoms to UMLS conditions.
+- **Agent 3**: Retrieves drug recommendations from FDA.
+
+> Implemented using `ZeroShotAgent` from **LangChain**, enabling modular reasoning by chaining multiple specialized tools.
+
+---
+
+## ⚙️ Optimizations Performed
+
+- 🧪 **Text Preprocessing**: Lowercasing, de-noising, and medical-aware tokenization.
+- 🖼 **OCR Enhancements**: Binarization and noise reduction before OCR for better accuracy.
+- 🔍 **Keyword Matching**: Regex-based detection of drugs in OCR output against live FDA data.
+- 🔄 **Asynchronous APIs**: FastAPI endpoints are async-enabled for concurrency and faster inference.
+- 🧠 **Multi-Agent Reasoning**: LangChain agents are modular and allow natural language orchestration of tasks.
+
+---
 
 ## Workflow Overview
 
