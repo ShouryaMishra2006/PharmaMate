@@ -158,15 +158,18 @@ PharmaMate employs a **LangChain-powered multi-agent architecture**:
 - **POST /suggest-medicines**:  
    Provide text (either extracted from an image or entered by the user), and the system returns a list of possible conditions and suggested drugs.
 
-## Acknowledgments
+## 🧩  Tech Stack 
 
-- **Hugging Face** for their Transformers library, which was used to fine-tune **ClinicalBERT** and build the custom dataset.
-- **SpaCy** for its powerful Named Entity Recognition (NER) capabilities.
-- **Google SpanBERT** for enhancing the dataset by adding specialists to the system.
-- **Tesseract OCR** for extracting text from medical images.
-- **UMLS** for providing a medical ontology that helps map symptoms to conditions.
-- **FDA API** for providing drug-related data to recommend medications.
-- **FastAPI** for creating a fast and efficient web service.
+| Component             | Technology Used            | Optimizations Applied                                |
+|-----------------------|----------------------------|------------------------------------------------------|
+| **NER**               | SpaCy, ClinicalBERT        | Hybrid fallback, multi-word span support             |
+| **OCR**               | Tesseract, OpenCV          | Grayscale, thresholding, blur cleanup                |
+| **Language Model**    | Google SpanBERT            | Custom data with span tagging, specialist balancing  |
+| **Condition Mapping** | UMLS API                   | Filter irrelevant CUIs, cache CUI results            |
+| **Drug Retrieval**    | OpenFDA API                | Normalization, brand/generic merging, error fallback |
+| **Agent Framework**   | LangChain (ZeroShot Agent) | Multi-agent decision chain with modular tooling      |
+| **Backend**           | FastAPI                    | Async API endpoints for image + text workflows       |
+| **Frontend**          | React + Tailwind CSS       | Responsive UI with loader states and error handling  |
 
 ---
 
