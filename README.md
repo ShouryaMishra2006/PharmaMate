@@ -23,9 +23,9 @@ PharmaMate uses a hybrid NER pipeline combining:
 
 ---
 
-### 2. 🧬 Custom Dataset with Google SpanBERT
+### 2. 🧬 Custom Dataset with Google flan-T5-base Model
 
-We enhance our data using **Google SpanBERT**, a transformer model fine-tuned for span-based prediction tasks:
+We enhance our data using **Google flan-T5-base Model**, a transformer model fine-tuned for span-based prediction tasks:
 
 - Adds rich context-based span annotations.
 - Improves mappings for:
@@ -108,8 +108,8 @@ PharmaMate employs a **LangChain-powered multi-agent architecture**:
 1. **OCR Process**:  
    The user uploads an image (e.g., a prescription or medical document). The image is processed using **Tesseract OCR** to extract the text, which is then passed through the system for further analysis.
 
-2. **Create Custom Dataset Using Google SpanBERT**:  
-   A custom dataset is created using **Google SpanBERT** to enrich the data with specialist information, enhancing the model’s ability to predict relevant specialists based on the input text.
+2. **Create Custom Dataset Using Google flan-T5-base Model**:  
+   A custom dataset is created using **Google flan-T5-base Model** to enrich the data with specialist information, enhancing the model’s ability to predict relevant specialists based on the input text.
 
 3. **Hybrid NER Model**:  
    The system uses a hybrid NER model (combining **SpaCy** and **ClinicalBERT**) to identify key medical entities like conditions, treatments, and specialists. The system has an accuracy rate of more than **90%** for extracting medical entities.
@@ -167,7 +167,7 @@ PharmaMate employs a **LangChain-powered multi-agent architecture**:
 |-----------------------|----------------------------|------------------------------------------------------|
 | **NER**               | SpaCy, ClinicalBERT        | Hybrid fallback, multi-word span support             |
 | **OCR**               | Tesseract, OpenCV          | Grayscale, thresholding, blur cleanup                |
-| **Language Model**    | Google SpanBERT            | Custom data with span tagging, specialist balancing  |
+| **Language Model**    | Google flan-T5-base Model  | Custom data with span tagging, specialist balancing  |
 | **Condition Mapping** | UMLS API                   | Filter irrelevant CUIs, cache CUI results            |
 | **Drug Retrieval**    | OpenFDA API                | Normalization, brand/generic merging, error fallback |
 | **Agent Framework**   | LangChain (ZeroShot Agent) | Multi-agent decision chain with modular tooling      |
