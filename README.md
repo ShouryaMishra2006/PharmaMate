@@ -4,6 +4,8 @@
 
 [FastAPI Backend Repo](https://github.com/ShouryaMishra2006/PharmaMate-Backend)
 
+[Deployed Hybrid Model (Spacy + ClinicalBERT)](https://huggingface.co/shouryamishra55/Hybrid-Pharma-Model)
+
 ## Overview
 
 PharmaMate is an AI-powered clinical decision support system designed to assist healthcare professionals in making informed decisions based on clinical data. The system combines advanced machine learning and Natural Language Processing (NLP) techniques, including Optical Character Recognition (OCR), hybrid models like SpaCy and ClinicalBERT, and integration with external medical APIs to provide accurate predictions for conditions, treatments, specialists, and drugs. 
