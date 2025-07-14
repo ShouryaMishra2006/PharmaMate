@@ -2,6 +2,7 @@
 
 [PharmaMate Demo](https://drive.google.com/file/d/1i1xEozqa_eRYYbxugDlReMW0rJEj1qZe/view?usp=drive_link)
 
+[FastAPI Backend Repo](https://github.com/ShouryaMishra2006/PharmaMate-Backend)
 
 ## Overview
 
@@ -213,13 +214,3 @@ Enable continuous fine-tuning of predictions using supervised learning,
 
 Deliver personalized recommendations based on historical interactions.
 
-5. EHR Integration (Planned)
-   
-Future versions will aim to integrate PharmaMate with Electronic Health Record (EHR) systems, enabling seamless ingestion and analysis of patient data in real clinical environments.
-
-7. Enhanced Data Security & Compliance
-   
-Ongoing work includes implementing advanced data encryption, user authentication, and ensuring compliance with medical data privacy regulations like HIPAA and GDPR.
-
-
-Feel free to reach out if you have any questions or suggestions!
